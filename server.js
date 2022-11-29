@@ -22,10 +22,11 @@ app.use(express.urlencoded({extended:true}));
 
 app.set('view engine','ejs');
 
-app.post("/register",async()=>{
-    const user = await User.findOne({username: req.body.usernmae});
+app.post("/register",async(req,res)=>{
+    
+const user = await User.findOne({username: req.body.usernmae});
 
-if(user)return res.status(400).send('user already exixt');
+if(user)return res.status(400).send('user already exist');
 
 const newUser= await User.create(req.body);
 
