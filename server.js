@@ -3,7 +3,7 @@ const app =express();
 const {connectMongoose,User}=require("./database.js")
 const ejs =require('ejs');
 const passport =require('passport');
-const { initializingPassport } = require('./passportConfig.js');
+const { initializingPassport,isAuthenticated} = require('./passportConfig.js');
 const expressSession =require("express-session");
 
 connectMongoose(); 
@@ -46,6 +46,10 @@ res.status(201).send(newUser)
 
 app.post('/login',passport.authenticate('local',{failureRedirect:'/register',successRedirectL:'/'}),async(req,res)=>{
 
+});
+
+ app.get('/profile',isAuthenticated,(req,res)=>{
+    res.send(req.user)
 });
 
 
