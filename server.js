@@ -37,6 +37,7 @@ app.post("/register",async(req,res)=>{
     
 const user = await User.findOne({username: req.body.usernmae});
 
+
 if(user)return res.status(400).send('user already exist');
 
 const newUser= await User.create(req.body);
